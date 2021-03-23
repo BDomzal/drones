@@ -25,13 +25,13 @@ def euler(initial_time, end_time, number_of_points, initial_value, derivative):
 
 def is_in_front(i, distance):
     """
-    Checks which of the objects are in front of a given object.
+    Checks if object i is in front of other objects.
     :param i: index of object of interest.
     :param distance: numpy 1D array representing locations/distance covered by objects.
-    :return: numpy 1D binary array with the same length as distance. 1 on j-th position indicates that j-th object
-    is in front of our object of interest.
+    :return: numpy 1D binary array with the same length as distance. 1 on j-th position indicates that i-th object
+    is in front of j-th object.
     """
-    return (distance > distance[i])*1
+    return (distance < distance[i])*1
 
 
 def model(A, velocity, optimal_velocity, kappa, K, distance, omega):
@@ -47,11 +47,11 @@ def model(A, velocity, optimal_velocity, kappa, K, distance, omega):
     :return:
     """
     dim = distance.shape[0]
-    exp_vector = np.exp(distance/omega)
+    exp_vector = np.exp((-1)*distance/omega)
     bool_array = np.empty((dim, dim))
     for i in range(dim):
-        bool_array[i, :] = K[i]*is_in_front(i, distance)
-    result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*np.exp((-1/omega)*distance)*np.matmul(bool_array, exp_vector))
+        bool_array[:, i] = K[i]*is_in_front(i, distance)
+    result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))
     return result
 
 
