@@ -34,17 +34,17 @@ def is_in_front(i, distance):
     return (distance < distance[i])*1
 
 
-def model(A, velocity, optimal_velocity, kappa, K, distance, omega):
+def model1(A, velocity, optimal_velocity, kappa, K, distance, omega):
     """
-    Function calculating value of second derivative according to our model. n - number of objects.
-    :param A: maximal accelarations, shape (n,)
+    Function calculating value of second derivative according to first version of our model. n - number of objects.
+    :param A: maximal accelerations, shape (n,)
     :param velocity: current velocity of objects, shape (n,)
     :param optimal_velocity: optimal velocity of objects, shape (n,)
     :param kappa: float
     :param K: shape (n,)
     :param distance: current location of objects/distance covered, shape(n,)
     :param omega: float
-    :return:
+    :return: np.array with shape (n,) representing accelerations of objects.
     """
     dim = distance.shape[0]
     exp_vector = np.exp((-1)*distance/omega)
@@ -55,7 +55,28 @@ def model(A, velocity, optimal_velocity, kappa, K, distance, omega):
     return result
 
 
-def derivative(t, x, A, optimal_velocity, kappa, K, omega):
+def model2(A, velocity, optimal_velocity, kappa, K, distance, omega):
+    """
+    Function calculating value of second derivative according to second version of our model. n - number of objects.
+    :param A: maximal accelerations, shape (n,)
+    :param velocity: current velocity of objects, shape (n,)
+    :param optimal_velocity: optimal velocity of objects, shape (n,)
+    :param kappa: float
+    :param K: shape (n,)
+    :param distance: current location of objects/distance covered, shape(n,)
+    :param omega: float
+    :return: np.array with shape (n,) representing accelerations of objects.
+    """
+    dim = distance.shape[0]
+    exp_vector = np.exp((-1)*distance/omega)
+    bool_array = np.empty((dim, dim))
+    for i in range(dim):
+        bool_array[:, i] = K[i]*is_in_front(i, distance)
+    result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*velocity*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))
+    return result
+
+
+def derivative(t, x, A, optimal_velocity, kappa, K, omega, model):
     """
     Function calculating derivative of y=(x,x') according to our model. n - number of objects.
     :param t: time (not used in our model).
@@ -66,7 +87,9 @@ def derivative(t, x, A, optimal_velocity, kappa, K, omega):
     :param kappa: see: model.
     :param K: see: model.
     :param omega: see: model.
-    :return:
+    :param model: which model should be used.
+    :return: np.array with shape (2*n,). First n coordinates correspond to velocities of objects from 0-th to (n-1)-th.
+    Coordinates from (n+1)-th to (2*n)-th correspond to accelerations of objects from 0-th to (n-1)-th.
     """
     result = np.empty(x.size)
     n = int(x.size/2)
