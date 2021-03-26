@@ -1,5 +1,4 @@
 import numpy as np
-from functools import partial
 
 
 def euler(initial_time, end_time, number_of_points, initial_value, derivative):
@@ -76,10 +75,44 @@ def model2(A, velocity, optimal_velocity, kappa, K, distance, omega):
     return result
 
 
+def model3(t, A, velocity, optimal_velocity, kappa, K, distance, omega, wind_function, change_time, wind_strength):
+    """
+    Function calculating value of second derivative according to third version of our model. n - number of objects.
+    :param t: time.
+    :param A: maximal accelerations, shape (n,)
+    :param velocity: current velocity of objects, shape (n,)
+    :param optimal_velocity: optimal velocity of objects, shape (n,)
+    :param kappa: float
+    :param K: shape (n,)
+    :param distance: current location of objects/distance covered, shape(n,)
+    :param omega: float
+    :param wind_function: function to calculate wind-induced acceleration
+    :param change_time
+    :param wind_strength
+    :param t: time
+    :return: np.array with shape (n,) representing accelerations of objects.
+    """
+    w = wind_function(t, change_time, wind_strength)
+    dim = distance.shape[0]
+    exp_vector = np.exp((-1)*distance/omega)
+    bool_array = np.empty((dim, dim))
+    for i in range(dim):
+        bool_array[:, i] = K[i]*is_in_front(i, distance)
+    result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*velocity*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))+w
+    return result
+
+
+def wind_function(t, change_time, wind_strength):
+    if t < change_time:
+        return wind_strength[0]
+    else:
+        return wind_strength[1]
+
+
 def derivative(t, x, A, optimal_velocity, kappa, K, omega, model):
     """
     Function calculating derivative of y=(x,x') according to our model. n - number of objects.
-    :param t: time (not used in our model).
+    :param t: time.
     :param x: np.array with shape (2*n,). First n coordinates correspond to location/distance covered by objects from
     0-th to (n-1)-th. Coordinates from (n+1)-th to 2n-th correspond to velocities of objects from 0-th to (n-1)-th.
     :param A: see: model.
@@ -95,5 +128,14 @@ def derivative(t, x, A, optimal_velocity, kappa, K, omega, model):
     n = int(x.size/2)
     result[:n, ] = x[n:, ]
     result[n:, ] = model(A=A, velocity=x[n:, ], optimal_velocity=optimal_velocity, kappa=kappa, K=K, distance=x[:n, ],
-                         omega=omega)
+                             omega=omega)
+    return result
+
+
+def derivative_non_autonomous(t, x, A, optimal_velocity, kappa, K, omega, wind_function, change_time, wind_strength, model):
+    result = np.empty(x.size)
+    n = int(x.size/2)
+    result[:n, ] = x[n:, ]
+    result[n:, ] = model(t=t, A=A, velocity=x[n:, ], optimal_velocity=optimal_velocity, kappa=kappa, K=K, distance=x[:n, ],
+                             omega=omega, wind_function=wind_function, change_time=change_time, wind_strength=wind_strength)
     return result
