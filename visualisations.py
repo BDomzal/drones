@@ -30,7 +30,7 @@ def visualise(time, values, drone_radius=None, drone_height=None, heightmax=None
         ax.set_xlim((0, np.max(values[-1,])))
         ax.set_ylim((-5, heightmax))
         ax.get_yaxis().set_visible(False)
-        ax.set_xlabel('Czas')
+        ax.set_xlabel('Położenie')
         for i in range(drone_num):
             ax.add_patch(plt.Circle((values[k, i], drone_height[i]), drone_radius[i], color=drone_col[i]))
         return ax
