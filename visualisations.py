@@ -16,12 +16,12 @@ def visualise(time, values, drone_radius=None, drone_height=None, heightmax=None
     drone_col = sns.color_palette(None, drone_num)
     end_distance = np.max(values[-1,])+3
 
-    # TODO: czy wysokosci powinny byc losowane z rozkladu jednostajnego czy normalnego
+    # TODO: should we draw heights from uniform or from normal distribution?
     if drone_height is None:
         drone_height = [random.uniform(1, 20) for i in range(drone_num)]
         heightmax = 25
         heightmin = -5
-    # TODO: wielkosc drona jako paramter, polaczone z funkcja wiatru
+    # TODO: drones size as parameter, connected with wind force
     # changed drone shape to rectangle
     if drone_radius is None:
         drone_radius = [1 for i in range(drone_num)]
@@ -48,7 +48,7 @@ def visualise(time, values, drone_radius=None, drone_height=None, heightmax=None
     writer1 = Writer(fps=60, metadata={'artist': 'Me'}, bitrate=1800)
     anim.save(filename+'.mp4', writer=writer1)
 
-    # If it had to be saved as gif
+    # If we need to save it as gif
     # anim.save('pplot1.gif', writer='imagemagick')
 
 def visualise_wind(time, values, wind, timeswitch, drone_radius=None, drone_height=None, heightmax=None, heightmin=None, filename='plot'):
@@ -63,13 +63,10 @@ def visualise_wind(time, values, wind, timeswitch, drone_radius=None, drone_heig
     drone_col = sns.color_palette(None, drone_num)
     end_distance = np.max(values[-1,])+3
 
-    # TODO: czy wysokosci powinny byc losowane z rozkladu jednostajnego czy normalnego
     if drone_height is None:
         drone_height = [random.uniform(1, 20) for i in range(drone_num)]
         heightmax = 25
         heightmin = -5
-    # TODO: wielkosc drona jako paramter, polaczone z funkcja wiatru
-    # changed drone shape to rectangle
     if drone_radius is None:
         drone_radius = [1 for i in range(drone_num)]
     drone_width = 0.01*end_distance
@@ -99,7 +96,7 @@ def visualise_wind(time, values, wind, timeswitch, drone_radius=None, drone_heig
     writer1 = Writer(fps=60, metadata={'artist': 'Me'}, bitrate=1800)
     anim.save(filename+'.mp4', writer=writer1)
 
-    # If it had to be saved as gif
+    # If we need to save it as gif
     # anim.save('pplot1.gif', writer='imagemagick')
 
 

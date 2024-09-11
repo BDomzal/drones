@@ -33,30 +33,9 @@ def is_in_front(i, distance):
     return (distance < distance[i])*1
 
 
-def model1(A, velocity, optimal_velocity, kappa, K, distance, omega):
-    """
-    Function calculating value of second derivative according to first version of our model. n - number of objects.
-    :param A: maximal accelerations, shape (n,)
-    :param velocity: current velocity of objects, shape (n,)
-    :param optimal_velocity: optimal velocity of objects, shape (n,)
-    :param kappa: float
-    :param K: shape (n,)
-    :param distance: current location of objects/distance covered, shape(n,)
-    :param omega: float
-    :return: np.array with shape (n,) representing accelerations of objects.
-    """
-    dim = distance.shape[0]
-    exp_vector = np.exp((-1)*distance/omega)
-    bool_array = np.empty((dim, dim))
-    for i in range(dim):
-        bool_array[:, i] = K[i]*is_in_front(i, distance)
-    result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))
-    return result
-
-
 def model2(A, velocity, optimal_velocity, kappa, K, distance, omega):
     """
-    Function calculating value of second derivative according to second version of our model. n - number of objects.
+    Function calculating value of second derivative according to the basic version of our model (without wind). n - number of objects.
     :param A: maximal accelerations, shape (n,)
     :param velocity: current velocity of objects, shape (n,)
     :param optimal_velocity: optimal velocity of objects, shape (n,)
@@ -77,7 +56,7 @@ def model2(A, velocity, optimal_velocity, kappa, K, distance, omega):
 
 def model3(t, A, velocity, optimal_velocity, kappa, K, distance, omega, wind_function, m):
     """
-    Function calculating value of second derivative according to third version of our model. n - number of objects.
+    Function calculating value of second derivative according to the version of our model containing wind. n - number of objects.
     :param t: time.
     :param A: maximal accelerations, shape (n,)
     :param velocity: current velocity of objects, shape (n,)
