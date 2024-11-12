@@ -1,11 +1,11 @@
 This repository contains the simulations based on the ODE describing the interactions between $n$~drones. The model is as follows:
 
-$$
+```
 \begin{aligned}
 	&\dot{x}_i(t)=v_i(t),\quad\quad &i\in\{0,\ldots,n-1\},\\
 	&\dot{v}_i(t)= A_{i}\left(1-\frac{v_{i}(t)}{{V}_{i}}-\frac{v_{i}(t)}{\kappa}\sum_{0\leq j<i} K_{j}\exp{\frac{x_i(t)-x_j(t)}{\omega}}\right)+\frac{H_i(t)}{m_i},\quad &i\in\{0,\ldots,n-1\},
  \end{aligned}
-$$
+```
  
 	with initial conditions
  
