@@ -7,7 +7,7 @@ $$
  	\end{aligned}
 $$
  
-	with initial conditions
+with initial conditions
  
 $$
 	\begin{aligned}
