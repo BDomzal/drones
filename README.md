@@ -1,3 +1,5 @@
+# Autonomous Drone Model
+
 ![nasz_model2-1](https://github.com/user-attachments/assets/4bdf7742-2db6-4bec-abc4-29c9f7155dc0)
 
 This repository contains the simulations based on the ODE describing the interactions between $n$ drones. The model is as follows:
