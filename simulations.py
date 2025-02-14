@@ -135,15 +135,18 @@ def discontinuous_wind(t, change_time, wind_force):
     Function calculating wind force. It assumes that wind affects each of the drone identically and that it's force
     changes from one value to another.
     :param t: time.
-    :param change_time: a moment of time when wind force changes.
-    :param wind_force: list of two values: first is the wind force before change_time, second is the wind force
+    :param change_time: a list of moments of time when wind force changes.
+    :param wind_force: list of values of wind force in the consecutive time intervals. It must have one more element than change_time list.
     after change_time.
     :return: float number which is a wind force in the given moment of time.
     """
-    if t < change_time:
-        return wind_force[0]
-    else:
-        return wind_force[1]
+    assert len(change_time) + 1 == len(wind_force), 'Wind_force argument must be a list with one element more than change_time argument.'
+    for i, change_t in enumerate(change_time):
+        if t < change_t:
+            return wind_force[i]
+        else:
+            pass
+    return wind_force[-1]
 
 
 def constant_wind(t, wind_force):
