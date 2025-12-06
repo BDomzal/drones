@@ -30,6 +30,7 @@ H_i(t)=\pm \frac{1}{2}\rho C_{d}A_{f,i}v_{wind}^{2}(t),
 where $\rho$ is a density of air, $C_{d}$ is a drag coefficient (dimensionless), $A_{f,i}$ is a frontal area of drone $i$ and $v_{wind}$ is a wind velocity.
 Using formula above, one can compute wind-induced acceleration acting on drone $i$ simply by dividing it by the mass of a drone. The parameters and units are summarized in the table below. It is assumed that all parameters are positive.
 
-![drones_parameters_table](https://github.com/user-attachments/assets/eeb06f49-f191-44c2-8e6e-49bd5cc5e382)
+<img width="485" height="263" alt="Screenshot from 2025-12-06 12-08-18" src="https://github.com/user-attachments/assets/e33cf50a-b38f-4aa3-a27a-3f2f185109b6" />
+
 
 [1] A. Battista, D. Ni (2017). Modeling Small Unmanned Aircraft System Traffic Flow Under External Force. Transportation Research Record: Journal of the Transportation Research Board. DOI:10.3141/2626-10.
