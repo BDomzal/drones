@@ -20,14 +20,14 @@ $`
 	\end{aligned}
 `$
 
-The variable $x_i(t)$ (expressed in meters ($m$)) describes the position of $i$-th drone (ordered from the drone at the front at time $t$, while variable $v_i$ – its velocity (expressed in $\frac{m}{s}$). Parameters $A_i$ and $V_i$ describe the maximal acceleration and the maximal velocity of the $i$-th drone, respectively. Parameters $m_i$ and $K_i$ describe the size of the $i$-th drone: $m_i$ is its mass and $K_i$ is proportional to the surface of its cross-section. Parameter $\kappa$ describes the capacity of the air corridor inside the horizon $\omega$, i.e. the distance in front of the drone, in which the preceding drones have a higher impact on the movement, while $H_i$ describes the wind force.
+The variable $x_i(t)$ (expressed in meters ($m$)) describes the position of $i$-th drone (ordered from the drone at the front at time $t$, while variable $v_i$ – its velocity (expressed in $\frac{m}{s}$). Parameters $A_i$ and $V_i$ describe the maximum acceleration and the maximum velocity of the $i$-th drone, respectively. Parameters $m_i$ and $K_i$ describe the size of the $i$-th drone: $m_i$ is its mass and $K_i$ is proportional to the surface of its cross-section. Parameter $\kappa$ describes the capacity of the air corridor inside the horizon $\omega$, i.e. the distance in front of the drone, in which the preceding drones have a higher impact on the movement, while $H_i$ describes the wind force.
 According to Battista et al. [1], the wind force acting on a drone can be described by:
 
 $`
 H_i(t)=\pm \frac{1}{2}\rho C_{d}A_{f,i}v_{wind}^{2}(t),
 `$
 
-where $\rho$ is a mass density of air, $C_{d}$ is a drag coefficient (dimensionless), $A_{f,i}$ is a frontal area of drone $i$ and $v_{wind}$ is a wind velocity.
+where $\rho$ is a density of air, $C_{d}$ is a drag coefficient (dimensionless), $A_{f,i}$ is a frontal area of drone $i$ and $v_{wind}$ is a wind velocity.
 Using formula above, one can compute wind-induced acceleration acting on drone $i$ simply by dividing it by the mass of a drone. The parameters and units are summarized in the table below. It is assumed that all parameters are positive.
 
 ![drones_parameters_table](https://github.com/user-attachments/assets/eeb06f49-f191-44c2-8e6e-49bd5cc5e382)
