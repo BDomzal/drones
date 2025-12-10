@@ -149,7 +149,7 @@ def derivative_with_wind(t, x, A, optimal_velocity, kappa, K, omega, model, wind
 
 def derivative_scalar_capacity(t, x, optimal_velocity, kappa, omega):
     """
-    Function calculating derivative of x according to our model. n - number of objects.
+    Function calculating derivative of x according to Scalar Capacity Model. n - number of objects.
     :param t: time.
     :param x: np.array with shape (n,). The n coordinates correspond to location/distance covered by objects from
     0-th to (n-1)-th.
@@ -158,7 +158,6 @@ def derivative_scalar_capacity(t, x, optimal_velocity, kappa, omega):
     :param omega: see: scalar_capacity_model.
     :return: np.array with shape (n,). The n coordinates correspond to velocities of objects from 0-th to (n-1)-th.
     """
-    result = np.empty(x.size)
     result = scalar_capacity_model(optimal_velocity=optimal_velocity, kappa=kappa, distance=x, omega=omega)
     return result
 
