@@ -80,6 +80,23 @@ def model3(t, A, velocity, optimal_velocity, kappa, K, distance, omega, wind_fun
     result = A*(1+(-1)*velocity/optimal_velocity-(1/kappa)*velocity*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))+w/m
     return result
 
+def scalar_capacity_model(optimal_velocity, kappa, distance, omega):
+    """
+    Function calculating value of derivative according to Scalar Capacity Model (Gharibi et al., 2021). n - number of objects.
+    :param optimal_velocity: optimal velocity of objects, shape (n,)
+    :param kappa: float
+    :param distance: current location of objects/distance covered, shape(n,)
+    :param omega: float
+    :return: np.array with shape (n,) representing velocities of objects.
+    """
+    dim = distance.shape[0]
+    exp_vector = np.exp((-1)*distance/omega)
+    bool_array = np.empty((dim, dim))
+    for i in range(dim):
+        bool_array[:, i] = is_in_front(i, distance)
+    result = optimal_velocity*(1-(1/kappa)*np.exp((1/omega)*distance)*np.matmul(bool_array, exp_vector))
+    return result
+
 
 def derivative(t, x, A, optimal_velocity, kappa, K, omega, model):
     """
@@ -127,6 +144,22 @@ def derivative_with_wind(t, x, A, optimal_velocity, kappa, K, omega, model, wind
     result[:n, ] = x[n:, ]
     result[n:, ] = model(t=t, A=A, velocity=x[n:, ], optimal_velocity=optimal_velocity, kappa=kappa, K=K, distance=x[:n, ],
                              omega=omega, wind_function=wind_function, m=m)
+    return result
+
+
+def derivative_scalar_capacity(t, x, optimal_velocity, kappa, omega):
+    """
+    Function calculating derivative of x according to our model. n - number of objects.
+    :param t: time.
+    :param x: np.array with shape (n,). The n coordinates correspond to location/distance covered by objects from
+    0-th to (n-1)-th.
+    :param optimal_velocity: see: scalar_capacity_model.
+    :param kappa: see: scalar_capacity_model.
+    :param omega: see: scalar_capacity_model.
+    :return: np.array with shape (n,). The n coordinates correspond to velocities of objects from 0-th to (n-1)-th.
+    """
+    result = np.empty(x.size)
+    result = scalar_capacity_model(optimal_velocity=optimal_velocity, kappa=kappa, distance=x, omega=omega)
     return result
 
 
