@@ -1,6 +1,6 @@
 # Autonomous Drone Model
 
-[fig1_alt.pdf](https://github.com/user-attachments/files/24272716/fig1_alt.pdf)
+<img width="462" height="99" alt="fig1_alt-1" src="https://github.com/user-attachments/assets/63d04fea-59e8-4af7-b973-aedaad5d8a23" />
 
 This repository contains the simulations based on the ODE describing the interactions between $n$ drones. The model is as follows:
 
