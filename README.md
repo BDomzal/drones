@@ -5,11 +5,16 @@
 This repository contains the simulations based on the ODE describing the interactions between $n$ drones. The model is as follows:
 
 $`
-	\begin{aligned}
-		\dot{x}_i(t)&=v_i(t), \\
-        \dot{v}_i(t)&=A_{i}( 1-\frac{v_{i}(t)}{{V}_{i}}-v_{i}(t)S_i(t)) +\frac{H_i(t)}{m_i},\\
-        S_i(t)&=\frac{1}{\kappa}\sum_{j=0}^{i-1} K_{j}\exp{\frac{x_i(t)-x_j(t)}{\omega}},
-	\end{aligned}
+    \begin{aligned}
+        \dot{x}_i(t) &= v_i(t),                                  &&i\in \{0, \dots, n-1\}\\
+        \dot{v}_i(t) &= A_{i}\left(1-\frac{v_{i}(t)}{{V}_{i}}-v_{i}(t)S_i(t)\right)+\frac{H_i(t)}{m_i}, \ && i\in \{0, \dots, n-1\} \\
+        S_i(t)       &={\Huge\{}\begin{aligned} & 0, \\ & \textstyle{\frac{1}{\kappa}\sum_{j=0}^{i-1} K_{j}\exp{\frac{x_i(t)-x_j(t)}{\omega}}}, 
+		\end{aligned} &&
+		\begin{aligned} 
+		&i=0 \\ 
+		&i\in \{1, \dots, n-1\}
+		\end{aligned}
+		\end{aligned}
 `$
  
 with initial conditions
