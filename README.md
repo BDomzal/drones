@@ -2,7 +2,7 @@
 
 <img width="462" height="99" alt="fig1_alt-1" src="https://github.com/user-attachments/assets/63d04fea-59e8-4af7-b973-aedaad5d8a23" />
 
-This repository contains the simulations based on the ODE describing the interactions between $n$ drones. The model is as follows:
+This repository contains the simulations based on the recently introduced Autonomous Drone Model [1]. This is an ODE system describing the interactions between $n$ drones. The model is as follows:
 
 $`
     \begin{aligned}
@@ -27,7 +27,7 @@ $`
 `$
 
 The variable $x_i(t)$ (expressed in meters [m]) describes the position of $i$-th drone (ordered from the drone at the front at time $t$, while variable $v_i$ – its velocity (expressed in $\frac{\text{m}}{\text{s}}$). Parameters $A_i$ and $V_i$ describe the maximum acceleration and the maximum velocity of the $i$-th drone, respectively. Parameters $m_i$ and $K_i$ describe the size of the $i$-th drone: $m_i$ is its mass and $K_i$ is the surface of its cross-section. Parameter $\kappa$ describes the capacity of the air corridor inside the horizon $\omega$, i.e. the distance in front of the drone, in which the preceding drones have a higher impact on the movement, while $H_i$ describes the wind force.
-According to Battista et al. [1], the wind force acting on a drone can be described by:
+According to Battista et al. [2], the wind force acting on a drone can be described by:
 
 $`
 H_i(t)=\pm \frac{1}{2}\rho C_{d}A_{f,i}v_{wind}^{2}(t),
@@ -38,5 +38,10 @@ Using formula above, one can compute wind-induced acceleration acting on drone $
 
 <img width="485" height="263" alt="Screenshot from 2025-12-06 12-08-18" src="https://github.com/user-attachments/assets/e33cf50a-b38f-4aa3-a27a-3f2f185109b6" />
 
+[1] A. Lonc, B. Domżał, M.J. Piotrowska (2026). Autonomous Drone Model: a mathematical study. Applied Mathematical Modelling. DOI: 10.1016/j.apm.2026.116750.
 
-[1] A. Battista, D. Ni (2017). Modeling Small Unmanned Aircraft System Traffic Flow Under External Force. Transportation Research Record: Journal of the Transportation Research Board. DOI:10.3141/2626-10.
+[2] A. Battista, D. Ni (2017). Modeling Small Unmanned Aircraft System Traffic Flow Under External Force. Transportation Research Record: Journal of the Transportation Research Board. DOI:10.3141/2626-10.
+
+## Citing
+
+If you are using this repository, please cite: [this paper](https://doi.org/10.1016/j.apm.2026.116750).
